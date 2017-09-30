@@ -22,6 +22,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include <k/kstd.h>
+#include <stdio.h>
 
 #include "multiboot.h"
 #include "serial.h"

@@ -27,19 +27,19 @@ TARGET	= k
 OBJS	= \
 	  crt0.o \
 	  k.o \
-	  libvga.o \
+	  driver/libvga.o \
 	  write.o \
-	  serial.o \
-	  gdt.o\
-	  idt.o\
-	  exception.o\
-	  asm_exception.o\
+	  driver/serial.o \
+	  core/gdt.o\
+	  core/idt.o\
+	  core/exception/callback.o\
+	  core/exception/handler.o\
 
 DEPS = $(OBJS:.o=.d)
 
 all: $(TARGET)
 
-$(TARGET): CPPFLAGS += -MMD -Iinclude -I ../libs/libc/include/
+$(TARGET): CPPFLAGS += -MMD -I. -Icore -Idriver -Iinclude -I ../libs/libc/include/
 $(TARGET): CFLAGS += $(K_EXTRA_CFLAGS)
 $(TARGET): LDFLAGS += -Wl,-Tk.lds
 $(TARGET): LDLIBS = -L../libs/libc -lc

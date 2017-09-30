@@ -17,4 +17,5 @@ int write(const char *s, size_t nb)
       write_serial(*s);
       s++;
     }
+  return nb;
 }

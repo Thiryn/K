@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "idt.h"
-#include "exception.h"
+#include "exception/exception.h"
 
 static struct idt_interrupt_gate_s idt_entries[IDT_SIZE];
 
