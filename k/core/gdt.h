@@ -5,9 +5,12 @@
 
 #define KERNEL_CODE 1
 #define KERNEL_DATA 2
-#define GDT_DEBUG 0
 
-void init_segments();
+#define CODE_ENTRY 1
+#define DATA_ENTRY 0
+
+#define GDT_INDICATOR 0x0
+#define LDT_INDICATOR 0x1
 
 typedef struct
 {
@@ -35,5 +38,7 @@ typedef struct {
   u16 limit;
   u32 base;
 } __attribute__((packed)) gdt_r;
+
+void init_gdt(void);
 
 #endif /* !GDT_H_ */

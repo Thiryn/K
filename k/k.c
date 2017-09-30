@@ -35,9 +35,9 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	(void)info;
 	init_serial(COM1);
 	puts("Serial Com 1 OK");
-	init_segments();
+	init_gdt();
 	puts("Segment Initialized");
-	load_idt();
+	init_idt();
 	puts("lidt done, test int 0");
 
 	asm volatile("int $0");
