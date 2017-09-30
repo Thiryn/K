@@ -2,6 +2,11 @@
 #define GDT_H_
 
 #include <k/types.h>
+
+#define KERNEL_CODE 1
+#define KERNEL_DATA 2
+#define GDT_DEBUG 0
+
 void init_segments();
 
 typedef struct

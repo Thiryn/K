@@ -31,7 +31,9 @@ OBJS	= \
 	  write.o \
 	  serial.o \
 	  gdt.o\
-
+	  idt.o\
+	  exception.o\
+	  asm_exception.o\
 
 DEPS = $(OBJS:.o=.d)
 

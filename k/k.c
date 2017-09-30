@@ -26,6 +26,7 @@
 #include "multiboot.h"
 #include "serial.h"
 #include "gdt.h"
+#include "idt.h"
 
 void k_main(unsigned long magic, multiboot_info_t *info)
 {
@@ -35,7 +36,12 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	puts("Serial Com 1 OK");
 	init_segments();
 	puts("Segment Initialized");
+	load_idt();
+	puts("lidt done, test int 0");
+
+	asm volatile("int $0");
+	puts("askldg");
 	
 	for (;;)
-		asm volatile ("hlt");
+	  asm volatile ("hlt");
 }
