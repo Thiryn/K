@@ -2,7 +2,6 @@
 #define INTERRUPT_H_
 
 #include "PIC.h"
-#define TEST_M_A #PIC_MASTER_A
 #define END_OF_INTERRUPT				\
   asm volatile("mov $0x20, %%al\n"			\
 	       "outb %%al, %0\n"			\

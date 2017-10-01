@@ -1,5 +1,5 @@
 #include <string.h>
-#include "../write.h"
+#include "k/write.h"
 
 int write(const char *s, size_t nb);
 

@@ -1,5 +1,5 @@
-#include "io.h"
-#include "serial.h"
+#include "k/io.h"
+#include "k/serial.h"
 
 int is_transmit_empty() {
    return inb(COM1 + 5) & 0x20;

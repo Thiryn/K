@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "io.h"
+#include "k/io.h"
 #include "interrupt.h"
-#include "write.h"
+#include "k/write.h"
 
 void generic_handler()
 {

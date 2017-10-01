@@ -1,7 +1,7 @@
 #ifndef DRIVER_H_
 #define DRIVER_H_
 
-#include "serial.h"
+#include "k/serial.h"
 
 void init_driver(void)
 {
