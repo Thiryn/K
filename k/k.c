@@ -25,23 +25,43 @@
 #include <stdio.h>
 
 #include "multiboot.h"
-#include "serial.h"
-#include "gdt.h"
 #include "idt.h"
+#include "gdt.h"
+#include "PIC.h"
+#include "driver.h"
+
+void enable_sti(void)
+{
+  asm volatile ("sti");
+}
+
+void enable_cli(void)
+{
+  asm volatile ("cli");
+}
 
 void k_main(unsigned long magic, multiboot_info_t *info)
 {
 	(void)magic;
 	(void)info;
-	init_serial(COM1);
-	puts("Serial Com 1 OK");
-	init_gdt();
-	puts("Segment Initialized");
-	init_idt();
-	puts("lidt done, test int 0");
 
-	asm volatile("int $0");
-	puts("askldg");
+	init_driver();
+	puts("Serial Com 1 OK");
+
+	init_gdt();
+	puts("gdt Initialized");
+
+	init_pic();
+	puts("PIC Initialized");
+
+	init_idt();
+	puts("idt Initialized");
+
+	init_pit();
+	puts("PIT Initialized");
+
+	enable_sti();
+	/* asm volatile("int $33"); */
 	
 	for (;;)
 	  asm volatile ("hlt");

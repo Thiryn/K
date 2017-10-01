@@ -4,7 +4,7 @@
 #include <k/types.h>
 #include "gdt.h"
 
-#define IDT_SIZE 256
+#define IDT_SIZE 255
 
 #define INTERRUPT_GATE  0b110
 

@@ -34,6 +34,7 @@ OBJS	= \
 	  core/idt.o\
 	  core/exception/callback.o\
 	  core/exception/handler.o\
+	  driver/PIC.o\
 
 DEPS = $(OBJS:.o=.d)
 

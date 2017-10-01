@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "idt.h"
-#include "exception/exception.h"
+#include "interrupt.h"
 
 static idt_interrupt_gate idt_entries[IDT_SIZE];
 
@@ -13,6 +13,13 @@ void set_idt_handler(idt_interrupt_gate* idt, u32 handler)
     idt->dpl = 0;
     idt->present = 1;
     idt->offset1 = (handler >> 16) & 0xffff;
+}
+
+void init_irq()
+{
+  set_idt_handler(idt_entries + 32, (u32)PIT_isr);
+  set_idt_handler(idt_entries + 33, (u32)keyboard_isr);
+  set_idt_handler(idt_entries + 8, (u32)generic_isr);
 }
 
 /*
@@ -31,9 +38,10 @@ void init_idt(void)
       idt->op_size = 1;
       idt->unused = 0;
       idt->zero = 0;
-      set_idt_handler(idt, (u32)exception_handler);
-      idt->present = (i < 32) ? 1 : 0;
+      set_idt_handler(idt, (u32)generic_isr);
+      idt->present = (i != 15 && (i < 21 || i > 31)) ? 1 : 0;
     }
+  init_irq();
 
   idt_r idtr;
   idtr.base = (u32)idt_entries;

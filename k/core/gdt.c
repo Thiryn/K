@@ -22,12 +22,12 @@
  * The GDT table
  * First entry always NULL
  */
-gdt_entry   gdt_entries[5] = {
+gdt_entry   gdt_entries[3] = {
   {0,}, // NULL SEGMENT
   ADD_GDT_ENTRY(0, 0xfffff, CODE_ENTRY, 0), // Kernel Code Segment
   ADD_GDT_ENTRY(0, 0xfffff, DATA_ENTRY, 0), // Kernel Data Segment
-  ADD_GDT_ENTRY(0, 0xfffff, CODE_ENTRY, 3), // User Data Segment
-  ADD_GDT_ENTRY(0, 0xfffff, DATA_ENTRY, 3), // User Data Segment
+  /* ADD_GDT_ENTRY(0, 0xfffff, CODE_ENTRY, 3), // User Code Segment */
+  /* ADD_GDT_ENTRY(0, 0xfffff, DATA_ENTRY, 3), // User Data Segment */
 };
 
 /*
@@ -99,6 +99,7 @@ static void load_segments (void) {
  */
 void init_gdt(void)
 {
+  enter_protected_mode();
   // Load GDT
   gdt_r gdtr;
   
@@ -109,6 +110,5 @@ void init_gdt(void)
 	       : "m" (gdtr)
 	       : "memory");
   
-  enter_protected_mode();
   load_segments();
 }
