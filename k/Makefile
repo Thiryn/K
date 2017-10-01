@@ -34,6 +34,7 @@ OBJS	= \
 	  driver/PIC.o\
 	  driver/serial.o \
 	  driver/libvga.o \
+	  syscall/getkey.o\
 
 DEPS = $(OBJS:.o=.d)
 

@@ -11,5 +11,9 @@ typedef unsigned int u32;
 typedef signed int s32;
 typedef unsigned long long u64;
 typedef signed long long s64;
+typedef u8 bool;
+
+#define true 1
+#define false 0
 
 #endif
