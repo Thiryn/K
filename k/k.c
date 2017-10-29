@@ -29,6 +29,7 @@
 #include "idt.h"
 #include "gdt.h"
 #include "PIC.h"
+#include "PIT.h"
 #include "driver.h"
 
 void enable_sti(void)

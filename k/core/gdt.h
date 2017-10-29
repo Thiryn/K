@@ -3,15 +3,28 @@
 
 #include <k/types.h>
 
+/*
+ * GDT entry indexes
+ */
 #define KERNEL_CODE 1
 #define KERNEL_DATA 2
+#define USER_CODE 3
+#define USER_DATA 4
 
+/*
+ * Entry type code or data
+ */
 #define CODE_ENTRY 1
 #define DATA_ENTRY 0
 
-#define GDT_INDICATOR 0x0
-#define LDT_INDICATOR 0x1
+/*
+ * See GDT structures information at
+ * https://k.lse.epita.fr/internals/protected_mode.html
+ */
 
+/*
+ * GDT entry structure
+ */
 typedef struct
 {
   u64	limit0	: 16;
@@ -25,15 +38,22 @@ typedef struct
   u64	l	: 1;
   u64	dsize	: 1;
   u64	granul	: 1;
-  u64	base1	: 8;  
+  u64	base1	: 8;
 } __attribute__((packed)) gdt_entry;
 
+
+/*
+ * Segment selector structure
+ */
 typedef struct {
   u16 rpl : 2;
   u16 ti : 1;
   u16 index : 13;
 } __attribute__((packed)) seg_selector;
 
+/*
+ * GDT loader structure
+ */
 typedef struct {
   u16 limit;
   u32 base;

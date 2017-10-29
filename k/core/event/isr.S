@@ -1,12 +1,12 @@
 .extern generic_handler
 .extern keyboard_handler
 .extern PIT_handler
-	
+
 .global generic_isr
 .global keyboard_isr
 .global PIT_isr
-	
-.macro SAVE_REG 
+
+.macro SAVE_REG
   pusha
   pushw %ds
   pushw %es
@@ -18,14 +18,14 @@
   popl %ebx
 .endm
 
-.macro RESTORE_REG 
+.macro RESTORE_REG
   popw %gs
   popw %fs
   popw %es
   popw %ds
   popa
 .endm
-	
+
 generic_isr:
 	pusha
 	call generic_handler

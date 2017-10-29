@@ -2,7 +2,7 @@
 #define RING_H_
 
 /*
- * A simple compile time ring buffer 
+ * A simple compile time ring buffer
  * All macro starting with a '_' are used internally
  */
 
@@ -43,7 +43,7 @@
 
 /*
  * Create a Ring buffer and its variables.
- * Takes the type of the ring's elements, a uniq identifier 
+ * Takes the type of the ring's elements, a uniq identifier
  * and the desired length of the ring.
  * Creating a ring create 4 variables depending on the identifier.
  * For example if the identifier is 'myring', it will create the variables :

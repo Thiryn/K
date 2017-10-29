@@ -22,12 +22,12 @@
  * The GDT table
  * First entry always NULL
  */
-gdt_entry   gdt_entries[3] = {
+gdt_entry   gdt_entries[5] = {
   {0,}, // NULL SEGMENT
   ADD_GDT_ENTRY(0, 0xfffff, CODE_ENTRY, 0), // Kernel Code Segment
   ADD_GDT_ENTRY(0, 0xfffff, DATA_ENTRY, 0), // Kernel Data Segment
-  /* ADD_GDT_ENTRY(0, 0xfffff, CODE_ENTRY, 3), // User Code Segment */
-  /* ADD_GDT_ENTRY(0, 0xfffff, DATA_ENTRY, 3), // User Data Segment */
+  ADD_GDT_ENTRY(0, 0xfffff, CODE_ENTRY, 3), // User Code Segment
+  ADD_GDT_ENTRY(0, 0xfffff, DATA_ENTRY, 3), // User Data Segment
 };
 
 /*
@@ -49,7 +49,7 @@ static void enter_protected_mode()
 static void load_segments (void) {
   seg_selector data = { 0, 0, KERNEL_DATA };
   seg_selector code = { 0, 0, KERNEL_CODE };
-  
+
   asm volatile ("movw %0, %%ax \n"
 		"movw %%ax, %%ds \n"
 		"movw %%ax, %%ss \n"
@@ -59,7 +59,7 @@ static void load_segments (void) {
 		:
 		: "d" (data)
 		: "ax");
-  
+
   asm volatile (
 		"pushl %0\n"
 		"pushl $1f \n"
@@ -73,42 +73,44 @@ static void load_segments (void) {
 
 /*
  * Helper function to debug a gdt entry
+ * As it is a debug function we add an __attribute__((unused)) because
+ * we dont want the warning when we are not using it
  */
-/* static void print_gdt(gdt_entry *e) */
-/* { */
-/*   printf("GDT ENTRY\n" */
-/* 	 "limit0\t0x%X\n" */
-/* 	 "base0\t0x%X\n" */
-/* 	 "type\t0x%X\n" */
-/* 	 "descriptor type\t0x%X\n" */
-/* 	 "privileges (DPL)\t0x%X\n" */
-/* 	 "present\t0x%X\n" */
-/* 	 "limit1\t0x%X\n" */
-/* 	 "avl\t0x%X\n" */
-/* 	 "l\t0x%X\n" */
-/* 	 "d/b op size\t0x%X\n" */
-/* 	 "granularity\t0x%X\n" */
-/* 	 "base1\t0x%X\n\n", */
-/* 	 e->limit0, e->base0, e->type, e->d_type, e->dpl, e->present, e->limit1, */
-/* 	 e->avl, e->l, e->dsize, e->granul, e->base1); */
-/* } */
+__attribute__((unused))
+static void print_gdt(gdt_entry *e)
+{
+  printf("GDT ENTRY\n"
+	 "limit0\t0x%X\n"
+	 "base0\t0x%X\n"
+	 "type\t0x%X\n"
+	 "descriptor type\t0x%X\n"
+	 "privileges (DPL)\t0x%X\n"
+	 "present\t0x%X\n"
+	 "limit1\t0x%X\n"
+	 "avl\t0x%X\n"
+	 "l\t0x%X\n"
+	 "d/b op size\t0x%X\n"
+	 "granularity\t0x%X\n"
+	 "base1\t0x%X\n\n",
+	 e->limit0, e->base0, e->type, e->d_type, e->dpl, e->present, e->limit1,
+	 e->avl, e->l, e->dsize, e->granul, e->base1);
+}
 
 /*
  * Init the GDT array, load it with 'lgdt', enter protected mode and load the segments
- *
  */
 void init_gdt(void)
 {
   enter_protected_mode();
   // Load GDT
   gdt_r gdtr;
-  
-  gdtr.base = (u32)gdt_entries; /* gdt base address */
-  gdtr.limit = sizeof(gdt_entries) - 1; /* gdt size - 1 */
+
+  gdtr.base = (u32)gdt_entries; // gdt base address
+  gdtr.limit = sizeof(gdt_entries) - 1; // gdt size - 1
   asm volatile("lgdt %0\n"
 	       : /* no output */
 	       : "m" (gdtr)
 	       : "memory");
-  
+
   load_segments();
 }

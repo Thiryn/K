@@ -1,3 +1,5 @@
+
+
 #
 # Copyright (c) LSE
 # All rights reserved.
@@ -32,6 +34,7 @@ OBJS	= \
 	  core/event/handler.o\
 	  core/event/isr.o\
 	  driver/PIC.o\
+	  driver/PIT.o\
 	  driver/serial.o \
 	  driver/libvga.o \
 	  syscall/getkey.o\
