@@ -63,8 +63,7 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	puts("PIT Initialized");
 
 	enable_sti();
-	/* asm volatile("int $33"); */
-	
+
 	for (;;)
 	  asm volatile ("hlt");
 }

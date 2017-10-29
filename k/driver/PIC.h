@@ -24,7 +24,7 @@
 #define ICW3_MASTER 0b00000100 /* The slave is connected to the 3rd pin from the end */
 #define ICW3_SLAVE 0b00000010 /* The master is connected to the 2nd pin from the end*/
 #define ICW4 0x1 /* No special ICW4 mode */
-#define OCW1_MASTER 0b11111001 /* No IRQ on 2 and 3 */
+#define OCW1_MASTER 0b11111100 /* No IRQ on 1 (PIT) & 2 (slave pin) */
 #define OCW1_SLAVE 0b11111111 /* All IRQs  ON */
 
 void init_pic(void);

@@ -2,7 +2,7 @@
 # define PIT_H_
 
 #define PIT_INTERNAL_FREQ 1193182 /* see https://k.lse.epita.fr/internals/8259a_controller.html */
-#define DESIRED_FREQ 1000 /* Hz */
+#define DESIRED_FREQ 100 /* Hz */
 
 #define PIT_CR0 0x40 /* PIT Counter Register 0 - Frequency interrupt */
 #define PIT_CR1 0x41 /* PIT Counter Register 1 - unused */
@@ -24,5 +24,15 @@
  * Send the confguration and set the timer's frequency
  */
 void init_pit(void);
+
+/*
+ * Increment the PIT counter
+ */
+void pit_increment_tick(void);
+
+/*
+ * Get the tick counter
+ */
+unsigned long pit_get_tick(void);
 
 #endif /* !PIT_H_ */

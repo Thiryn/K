@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "idt.h"
 #include "interrupt.h"
+#include "PIC.h"
 
 static idt_interrupt_gate idt_entries[IDT_SIZE];
 
@@ -20,8 +21,8 @@ static void set_idt_handler(idt_interrupt_gate* idt, u32 handler)
  */
 static void init_irq()
 {
-  set_idt_handler(idt_entries + 32, (u32)PIT_isr);
-  set_idt_handler(idt_entries + 33, (u32)keyboard_isr);
+  set_idt_handler(idt_entries + ICW2_MASTER, (u32)PIT_isr);
+  set_idt_handler(idt_entries + ICW2_MASTER + 1, (u32)keyboard_isr);
 }
 
 /*
